@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-/* Reset basic styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Center the ToDo box on the screen */
 body,
 html {
   height: 100%;
@@ -22,7 +20,7 @@ html {
   height: 100vh;
 }
 
-/* Main ToDo box */
+/* main */
 .ToDo {
   display: flex;
   flex-direction: column;
@@ -37,13 +35,12 @@ html {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading */
+/* heading */
 .ToDo h1 {
   font-weight: 700;
   margin-bottom: 20px;
 }
 
-/* Input + button area */
 .input-area {
   display: flex;
   justify-content: center;
@@ -60,6 +57,11 @@ html {
   font-size: 16px;
   outline: none;
   transition: border-color 0.3s;
+}
+
+.input-area input::placeholder {
+  color: #999;
+  opacity: 0.5;
 }
 
 .input-area input:focus {
@@ -86,7 +88,6 @@ html {
   transform: scale(0.95);
 }
 
-/* To-do list area */
 .todos-container {
   width: 100%;
 }
@@ -97,9 +98,33 @@ html {
   margin-bottom: 20px;
 }
 
-/* Placeholder image */
 .a-man {
   width: 300px;
   height: auto;
   margin-top: 10px;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  background: rgb(255, 191, 100);
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+
+#todo-list li:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#todo-list li .checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  background: transparent;
+  border-radius: 50%;
 }
