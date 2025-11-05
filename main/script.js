@@ -9,6 +9,20 @@ document.addEventListener("DOMContentLoaded", () => {
       todoList.children.length === 0 ? "block" : "none";
   };
 
+  const saveTaskToLocalStorage = () => {
+    const tasks = Array.from(todoList.querySelectorAll("li")).map((li) => ({
+      text: li.querySelector("span").textContent,
+      completed: li.querySelector(".checkbox").checked,
+    }));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  };
+
+  const loadTasksFromLocalStorage = () => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    savedTasks.forEach((task) => addTask(text, completed, false));
+    toggleEmptyState();
+  };
+
   const addTask = (text, completed = false) => {
     const taskText = text || taskInput.value.trim();
     if (!taskText) {
@@ -41,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       editButton.disabled = isChecked;
       editButton.style.opacity = isChecked ? 0.5 : 1;
       editButton.style.pointerEvents = isChecked ? "none" : "auto";
+      saveTaskToLocalStorage();
     });
 
     editButton.addEventListener("click", () => {
@@ -48,17 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
         taskInput.value = li.querySelector("span").textContent;
         li.remove();
         toggleEmptyState();
+        saveTaskToLocalStorage();
       }
     });
 
     li.querySelector(".delete-button").addEventListener("click", () => {
       li.remove();
       toggleEmptyState();
+      saveTaskToLocalStorage();
     });
 
     todoList.appendChild(li);
     taskInput.value = "";
     toggleEmptyState();
+    saveTaskToLocalStorage();
   };
 
   addButton.addEventListener("click", () => addTask());
@@ -68,4 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
       addTask();
     }
   });
+
+  loadTasksFromLocalStorage();
 });
